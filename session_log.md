@@ -66,10 +66,27 @@ units（単元）
 - 今後Claude Codeがこのリポジトリで作業する際のガイドとして`CLAUDE.md`を作成。
 - 内容：プロジェクト概要（初学者向け・フレームワーク不使用の方針）、コマンド（`npm run build:db`、Live Serverでの起動方法）、アーキテクチャ（データパイプライン、DBスキーマ、mdパースのルール）、現状の未完了タスク（`isAnswerCorrect()`未実装、Unit1.md空、GitHub Pagesデプロイ方法未決定）。
 
+## 9. GitHubへの移行
+
+- 「今からGitHubに移行したい」という依頼。`gh`（GitHub CLI）が未インストールだったため、進め方を確認。
+- ユーザーが自分でgithub.com上に空のリポジトリを作成：https://github.com/ichikoji-151/Englsih-Learning-App
+- ローカル側の作業：
+  - `public/words.db-shm` / `public/words.db-wal`（SQLiteのWALモードが作る一時ファイル）が誤ってステージされていたのを発見し、`.gitignore`に追加して除外
+  - 初回コミットを作成（11ファイル）
+  - `git remote add origin` → `git push -u origin main` でpush完了
+
+## 10. Contributors表示についての相談
+
+- 「Contributorsに自分が入るにはどうすればいいか」という質問。
+- コミットの作者情報が `ichikoji <2401100061cs@cyber-u.au.jp>` になっており、このメールアドレスがGitHubアカウント（`ichikoji-151`）で認証済みでないと、Contributorsにプロフィールとして正しく紐付かない可能性があることを説明。
+- 対応案として「メールアドレスをGitHubアカウントに追加・認証する」「GitHub発行のnoreplyメールをgit設定に使う」の2つを提示。
+- ユーザーから「自分でGit上でコミットすればいいのでは」という提案があり、それも有効な方法であることを確認（GitHubのWeb UI経由でコミットすれば自動的にアカウントに紐付く。ローカルで自分でコミットする場合はローカルのgit設定のメールアドレスが認証済みである必要がある、という点は同じ）。
+
 ## 現時点のステータス
 
-- 完了：DB設計、md→SQLite変換パイプライン、フロントエンドの骨組み一式、開発環境（SQLite Viewer / Live Server）
+- 完了：DB設計、md→SQLite変換パイプライン、フロントエンドの骨組み一式、開発環境（SQLite Viewer / Live Server）、GitHubリポジトリへの移行・初回push
 - 未完了：
   1. `public/app.js`の`isAnswerCorrect()`をユーザーが実装する
   2. Live Serverで入力モード・選択モードの両方を実際に動作確認する
   3. GitHub Pagesへのデプロイ設定（`words.db`をそのままコミットするか、CIでビルドするかは未決定）
+  4. コミット作者メールアドレスのGitHubアカウントでの認証確認（Contributors表示のため）
